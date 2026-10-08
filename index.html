@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BALSASUD - Sistema Integral de Gestión</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .hub-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .hub-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .hub-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .hub-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+        .hub-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .hub-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+        .hub-card-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        .hub-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .hub-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .hub-card-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .hub-card.primary .hub-card-btn {
+            background: var(--primary);
+            color: #fff;
+        }
+        .hub-card.primary .hub-card-btn:hover {
+            background: var(--primary-dark);
+        }
+        .hub-card.success .hub-card-btn {
+            background: var(--success);
+            color: #fff;
+        }
+        .hub-card.success .hub-card-btn:hover {
+            background: #059669;
+        }
+        .hub-footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hub-container">
+        <div class="hub-header">
+            <h1>🏢 BALSASUD</h1>
+            <p>Sistema Integral de Gestión Empresarial</p>
+        </div>
+
+        <div class="hub-grid">
+            <!-- Sistema Documental -->
+            <div class="hub-card primary" onclick="window.location.href='documentos.html'">
+                <div class="hub-card-icon">📄</div>
+                <h3>Sistema Documental</h3>
+                <p>Gestiona toda la documentación de tu empresa: contratos, pólizas, manuales, informes y más. Con asistente IA integrado.</p>
+                <span class="hub-card-btn">Acceder al Sistema →</span>
+            </div>
+
+            <!-- Sistema de Riesgos -->
+            <div class="hub-card success" onclick="window.location.href='riesgos.html'">
+                <div class="hub-card-icon">⚠️</div>
+                <h3>Gestión de Riesgos</h3>
+                <p>Identifica, evalúa y gestiona los riesgos de tu organización. Matriz de riesgos, planes de acción y reportes en tiempo real.</p>
+                <span class="hub-card-btn">Acceder al Sistema →</span>
+            </div>
+        </div>
+
+        <div class="hub-footer">
+            <p>© 2026 BALSASUD - Todos los derechos reservados</p>
+            <p style="margin-top: 8px;">Sistema v2.0 | Con sincronización en la nube</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BALSASUD - Sistema Documental</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            <h2>BALSASUD</h2>
+            <span>Gestión Documental</span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li class="active" data-area="dashboard">📊 Dashboard</li>
+            <li data-area="rrhh">👥 Recursos Humanos</li>
+            <li data-area="finanzas">💰 Finanzas</li>
+            <li data-area="operaciones">⚙️ Operaciones</li>
+            <li data-area="legal">⚖️ Legal</li>
+            <li data-area="comercial">📈 Comercial</li>
+            <li data-area="sistemas">🖥️ Sistemas</li>
+        </ul>
+        <div class="sidebar-footer">
+            <li data-area="ai-panel">🤖 Asistente IA</li>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="search-box">
+                <input type="text" id="globalSearch" placeholder="🔍 Buscar documentos globalmente...">
+            </div>
+            <div class="user-info">
+                <span id="currentAreaLabel">Dashboard</span>
+                <span id="nubeEstado" title="Clic para cambiar servidor" style="background:#6b7280;color:#fff;font-size:12px;padding:6px 10px;border-radius:20px;white-space:nowrap;cursor:pointer" onclick="nubeConfigurar()">...</span>
+                <button class="btn-upload" id="btnUpload">📄 Subir Documento</button>
+            </div>
+        </header>
+
+        <div class="content-area" id="contentArea">
+            <!-- Dashboard -->
+            <div class="view active" id="view-dashboard">
+                <div class="stats-grid" id="statsGrid"></div>
+                <div class="dashboard-sections">
+                    <div class="card">
+                        <h3>📂 Áreas del Sistema</h3>
+                        <div class="areas-grid" id="areasGrid"></div>
+                    </div>
+                    <div class="card">
+                        <h3>🕐 Actividad Reciente</h3>
+                        <div id="recentActivity"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área Específica -->
+            <div class="view" id="view-area">
+                <div class="area-header">
+                    <h2 id="areaTitle"></h2>
+                    <div class="area-filters">
+                        <select id="filterTipo">
+                            <option value="">Todos los tipos</option>
+                            <option value="contrato">Contratos</option>
+                            <option value="informe">Informes</option>
+                            <option value="poliza">Pólizas</option>
+                            <option value="factura">Facturas</option>
+                            <option value="manual">Manuales</option>
+                            <option value="procedimiento">Procedimientos</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <select id="filterAnio">
+                            <option value="">Todos los años</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="documents-grid" id="documentsGrid"></div>
+            </div>
+
+            <!-- Asistente IA -->
+            <div class="view" id="view-ai-panel">
+                <div class="ai-container">
+                    <div class="ai-header">
+                        <h2>🤖 Asistente Inteligente</h2>
+                        <p>Consulta, analiza y gestiona la documentación con ayuda de IA</p>
+                    </div>
+                    <div class="ai-chat" id="aiChat"></div>
+                    <div class="ai-quick-actions">
+                        <button class="ai-action-btn" data-action="resumir">📋 Resumir documentos</button>
+                        <button class="ai-action-btn" data-action="sugerir">💡 Sugerir categorización</button>
+                        <button class="ai-action-btn" data-action="alertar">⚠️ Detectar vencimientos</button>
+                        <button class="ai-action-btn" data-action="buscar">🔎 Búsqueda inteligente</button>
+                        <button class="ai-action-btn" data-action="auditar">📊 Auditoría documental</button>
+                        <button class="ai-action-btn" data-action="clasificar">🏷️ Clasificar automáticamente</button>
+                    </div>
+                    <div class="ai-input-area">
+                        <textarea id="aiInput" placeholder="Consulta al asistente... (ej: '¿Qué contratos vencen este mes?', 'Resume el manual de operaciones')"></textarea>
+                        <button id="btnSendAI">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Subir -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>📄 Subir Nuevo Documento</h3>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label>Nombre del documento</label>
+                    <input type="text" id="docNombre" required placeholder="Ej: Contrato de servicio 2026">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Área</label>
+                        <select id="docArea" required>
+                            <option value="rrhh">Recursos Humanos</option>
+                            <option value="finanzas">Finanzas</option>
+                            <option value="operaciones">Operaciones</option>
+                            <option value="legal">Legal</option>
+                            <option value="comercial">Comercial</option>
+                            <option value="sistemas">Sistemas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="docTipo" required>
+                            <option value="contrato">Contrato</option>
+                            <option value="informe">Informe</option>
+                            <option value="poliza">Póliza</option>
+                            <option value="factura">Factura</option>
+                            <option value="manual">Manual</option>
+                            <option value="procedimiento">Procedimiento</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha del documento</label>
+                        <input type="date" id="docFecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Vencimiento (si aplica)</label>
+                        <input type="date" id="docVencimiento">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="docDescripcion" rows="3" placeholder="Descripción breve del contenido..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Archivo</label>
+                    <input type="file" id="docArchivo" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt">
+                </div>
+                <div class="ai-suggestion" id="aiSuggestion" style="display:none;">
+                    <span class="ai-badge">🤖 IA</span>
+                    <span id="aiSuggestionText"></span>
+                </div>
+                <button type="submit" class="btn-primary">Guardar Documento</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Vista Documento -->
+    <div class="modal" id="docModal">
+        <div class="modal-content modal-lg">
+            <span class="close" id="closeDocModal">&times;</span>
+            <div id="docDetailContent"></div>
+        </div>
+    </div>
+
+    <script src="js/sdk.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/nube.js"></script>
+    <script src="js/sync-docs-sheets.js"></script>
+    <script src="js/diagnostico.js"></script>
+</body>
+</html>
